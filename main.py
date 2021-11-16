@@ -45,9 +45,9 @@ class CensusResponseModel(BaseModel):
 
 def load_artifacts():
     # load model artifacts needed for processing and inference
-    model = pd.load_pkl("model/hgb_classifier.pkl")
-    encoder = pd.load_pkl("model/encoder.pkl")
-    lb = pd.load_pkl("model/lb.pkl")
+    model = pd.read_pickle("model/hgb_classifier.pkl")
+    encoder = pd.read_pickle("model/encoder.pkl")
+    lb = pd.read_pickle("model/lb.pkl")
     return model, encoder, lb
 
 
