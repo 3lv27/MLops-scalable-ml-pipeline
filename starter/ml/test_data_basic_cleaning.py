@@ -5,8 +5,7 @@ import pandas as pd
 @pytest.fixture
 def data():
     """ Retrieve Cleaned Dataset """
-    train_file = "starter/data/census_clean.csv"
-    df = pd.read_csv(train_file)
+    df = pd.read_csv("data/census_clean.csv")
     # exclude label
     df = df.iloc[:, :-1]
     return df

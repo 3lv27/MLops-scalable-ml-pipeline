@@ -6,7 +6,12 @@ from pandas import DataFrame
 
 
 def load_data_csv(path: str) -> DataFrame:
-    return pd.read_csv(path)
+    try:
+        df = pd.read_csv(f"{path}")
+        return df
+    except FileNotFoundError:
+        logging.error(f"File not found on directory: {path}")
+        return pd.DataFrame()
 
 
 def clean_cols_name(df: DataFrame) -> DataFrame:
@@ -29,7 +34,7 @@ def clean_rows_with_false_condition(
         condition: str) -> DataFrame:
     clean_df = df.copy()
     for col in cols:
-        clean_df = df[df[col] != condition]
+        clean_df = clean_df.loc[clean_df[col] != condition]
     return clean_df
 
 
@@ -44,9 +49,14 @@ def save_data_csv(df: DataFrame, folder: str, file_name: str) -> bool:
 
 
 if __name__ == "__main__":
-    census_df = clean_categorical_cols(
-        clean_cols_name(
-            load_data_csv("../../data/census.csv")))
-    cleaned_census_df = clean_rows_with_false_condition(
-        census_df, ["workclass", "occupation", "native-country"], "?")
-    save_data_csv(cleaned_census_df, ".", "../../data/census_clean.csv")
+    raw_df = load_data_csv("data/census.csv")
+    if not raw_df.empty:
+        census_df = clean_categorical_cols(
+            clean_cols_name(raw_df)
+        )
+        cleaned_census_df = clean_rows_with_false_condition(
+            census_df, ["workclass", "occupation", "native-country"], "?")
+        save_data_csv(cleaned_census_df, ".", "data/census_clean.csv")
+    else:
+        logging.error(f"DataFrame not foun or loaded properly")
+
