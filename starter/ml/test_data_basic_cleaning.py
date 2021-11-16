@@ -1,6 +1,5 @@
 import pytest
 import pandas as pd
-import numpy as np
 
 
 @pytest.fixture
@@ -33,4 +32,3 @@ def test_data_column_name_cleaned(data):
     cols_name = data.columns
     for col in cols_name:
         assert " " not in col, f"Found space character in feature {col}"
-

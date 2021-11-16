@@ -10,7 +10,8 @@ from ml.model import train_model, inference, compute_model_metrics, save_model
 # Add code to load in the data.
 data = pd.read_csv(r"starter/data/census_clean.csv")
 
-# Optional enhancement, use K-fold cross validation instead of a train-test split.
+# Optional enhancement, use K-fold cross validation instead of a
+# train-test split.
 train, test = train_test_split(data, test_size=0.20)
 
 cat_features = [
@@ -42,7 +43,9 @@ classifier = train_model(X_train, y_train)
 save_model(classifier, "../model", "hgb_classifier.pkl")
 
 y_train_pred = inference(classifier, X_train)
-train_precision, train_recall, train_fbeta = compute_model_metrics(y_train, y_train_pred)
+train_precision, train_recall, train_fbeta = compute_model_metrics(
+    y_train, y_train_pred)
 
 y_test_pred = inference(classifier, X_test)
-test_precision, test_recall, test_fbeta = compute_model_metrics(y_test, y_test_pred)
+test_precision, test_recall, test_fbeta = compute_model_metrics(
+    y_test, y_test_pred)

@@ -23,7 +23,10 @@ def clean_categorical_cols(df: DataFrame) -> DataFrame:
     return clean_df
 
 
-def clean_rows_with_false_condition(df: DataFrame, cols: list, condition: str) -> DataFrame:
+def clean_rows_with_false_condition(
+        df: DataFrame,
+        cols: list,
+        condition: str) -> DataFrame:
     clean_df = df.copy()
     for col in cols:
         clean_df = df[df[col] != condition]
@@ -41,6 +44,9 @@ def save_data_csv(df: DataFrame, folder: str, file_name: str) -> bool:
 
 
 if __name__ == "__main__":
-    census_df = clean_categorical_cols(clean_cols_name(load_data_csv("../../data/census.csv")))
-    cleaned_census_df = clean_rows_with_false_condition(census_df, ["workclass", "occupation", "native-country"], "?")
+    census_df = clean_categorical_cols(
+        clean_cols_name(
+            load_data_csv("../../data/census.csv")))
+    cleaned_census_df = clean_rows_with_false_condition(
+        census_df, ["workclass", "occupation", "native-country"], "?")
     save_data_csv(cleaned_census_df, ".", "../../data/census_clean.csv")
