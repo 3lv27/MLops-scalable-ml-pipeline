@@ -58,5 +58,4 @@ if __name__ == "__main__":
             census_df, ["workclass", "occupation", "native-country"], "?")
         save_data_csv(cleaned_census_df, ".", "data/census_clean.csv")
     else:
-        logging.error(f"DataFrame not foun or loaded properly")
-
+        logging.error("DataFrame not found or loaded properly")

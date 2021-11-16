@@ -24,10 +24,8 @@ def train_model(X_train, y_train):
     """
     model = HistGradientBoostingClassifier(random_state=46)
     parameters = {
-        "n_estimators": (5, 10),
         "learning_rate": (0.1, 0.01, 0.001),
-        "max_depth": [None, 1, 3, 5, 10, 20],
-        "max_features": ("auto", "log2")
+        "max_depth": [None, 1, 3, 5, 10, 20]
     }
     grid = GridSearchCV(model, parameters)
     grid.fit(X_train, y_train)
@@ -91,13 +89,13 @@ def save_model(model, filename):
             If succeed or failed.
         """
 
-    path = Path("../model")
+    path = Path("model")
 
     if path.exists():
-        with open(f"../model/{filename}", "wb") as file:
+        with open(f"model/{filename}", "wb") as file:
             pickle.dump(model, file)
         logging.info(f"file saved to: model/{filename}")
         return True
     else:
-        logging.error(f"path: ../model/{filename} does not exists")
+        logging.error(f"path: model/{filename} does not exists")
         return False

@@ -6,8 +6,8 @@ from ml.model import inference, compute_model_metrics
 def compute_slice_performance(data, model, encoder, lb, cat_features):
     """
     Function that computes performance on model slices
-    Computes and saves the performance metrics when the value of a given feature
-    is held fixed.
+    Computes and saves the performance metrics when the
+    value of a given feature is held fixed.
     ------
     data : pandas dataframe
         The preprocessed feature dataframe
@@ -47,4 +47,3 @@ def compute_slice_performance(data, model, encoder, lb, cat_features):
         json.dump(results, f, indent=2)
 
     return results
-

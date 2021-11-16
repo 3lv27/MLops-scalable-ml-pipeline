@@ -12,7 +12,6 @@ WARN_COLOR = '\033[93m'
 
 def run_sanity_check(test_dir):
 
-    # assert path.isdir(test_dir), FAIL_COLOR+f"No direcotry named {test_dir} found in {os.getcwd()}"
     print('This script will perform a sanity test to ensure '
           'your code meets the criteria in the rubric.\n')
     print('Please enter the path to the file that contains your '
@@ -100,7 +99,8 @@ def run_sanity_check(test_dir):
     if not test_functions_for_post:
         print(FAIL_COLOR + f"[{WARNING_COUNT}]")
         WARNING_COUNT += 1
-        print(f"{FAIL_COLOR} No test cases were detected for the POST() method.")
+        print(f"{FAIL_COLOR} No test cases were detected "
+              f"for the POST() method.")
         print(
             FAIL_COLOR +
             "Please make sure you have TWO test cases for the POST() method." +
@@ -116,7 +116,8 @@ def run_sanity_check(test_dir):
                 "Only one test case was detected for the POST() method.")
             print(
                 FAIL_COLOR +
-                "Please make sure you have two test cases for the POST() method." +
+                "Please make sure you have two test cases "
+                "for the POST() method." +
                 "\nOne test case for EACH of the possible "
                 "inferences (results/outputs) of the ML model.\n")
             SANITY_TEST_PASSING = False
@@ -125,7 +126,8 @@ def run_sanity_check(test_dir):
             source = inspect.getsource(getattr(module, func))
             if source.find('.status_code') != -1:
                 TEST_FOR_POST_METHOD_RESPONSE_CODE = True
-            if (source.find('.json') != -1) or (source.find('json.loads') != -1):
+            if (source.find('.json') != -1) \
+                    or (source.find('json.loads') != -1):
                 TEST_FOR_POST_METHOD_RESPONSE_BODY = True
                 COUNT_POST_METHOD_TEST_FOR_INFERENCE_RESULT += 1
 
