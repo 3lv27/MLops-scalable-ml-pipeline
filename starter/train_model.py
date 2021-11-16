@@ -38,9 +38,13 @@ X_test, y_test, encoder, lb = process_data(
     lb=lb
 )
 
+save_model(encoder, "encoder.pkl")
+save_model(lb, "lb.pkl")
+
 # Train and save a model.
 classifier = train_model(X_train, y_train)
-save_model(classifier, "../model", "hgb_classifier.pkl")
+save_model(classifier, "hgb_classifier.pkl")
+
 
 y_train_pred = inference(classifier, X_train)
 train_precision, train_recall, train_fbeta = compute_model_metrics(

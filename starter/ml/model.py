@@ -76,14 +76,28 @@ def inference(model, X):
     return preds
 
 
-def save_model(model, filepath, filename):
-    path = Path(filepath)
+def save_model(model, filename):
+    """ Save model file.
+
+        Inputs
+        ------
+        model : ???
+            Trained machine learning model.
+        filename : string
+            The name of the file.
+        Returns
+        -------
+        preds : boolean
+            If succeed or failed.
+        """
+
+    path = Path("../model")
 
     if path.exists():
-        with open(f"{filepath}/{filename}", "wb") as file:
+        with open(f"../model/{filename}", "wb") as file:
             pickle.dump(model, file)
-        logging.info("model saved to: ", filepath)
+        logging.info(f"file saved to: model/{filename}")
         return True
     else:
-        logging.error(f"path: {filepath} does not exists")
+        logging.error(f"path: ../model/{filename} does not exists")
         return False
