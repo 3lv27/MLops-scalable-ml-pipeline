@@ -10,6 +10,12 @@ from starter.train_model import cat_features
 from starter.ml.model import inference
 from starter.ml.data import process_data
 
+if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    os.system("dvc config core.no_scm true")
+    if os.system("dvc pull train_model") != 0:
+        exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
+
 app = FastAPI(title="FastAPI Census Prediction 🤖",
               description="Ask your Census thoughts to our API")
 
