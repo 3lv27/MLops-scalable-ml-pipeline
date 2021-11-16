@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 # Add the necessary imports for the starter code.
 import pandas as pd
 from ml.data import process_data
-from ml.model import train_model
+from ml.model import train_model, inference, compute_model_metrics, save_model
 
 # Add code to load in the data.
 data = pd.read_csv(r"starter/data/census_clean.csv")
@@ -28,5 +28,21 @@ X_train, y_train, encoder, lb = process_data(
 )
 
 # Proces the test data with the process_data function.
+X_test, y_test, encoder, lb = process_data(
+    test,
+    categorical_features=cat_features,
+    label="salary",
+    training=False,
+    encoder=encoder,
+    lb=lb
+)
 
 # Train and save a model.
+classifier = train_model(X_train, y_train)
+save_model(classifier, "../model", "hgb_classifier.pkl")
+
+y_train_pred = inference(classifier, X_train)
+train_precision, train_recall, train_fbeta = compute_model_metrics(y_train, y_train_pred)
+
+y_test_pred = inference(classifier, X_test)
+test_precision, test_recall, test_fbeta = compute_model_metrics(y_test, y_test_pred)

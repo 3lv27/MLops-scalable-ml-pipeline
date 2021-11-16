@@ -1,4 +1,9 @@
+import logging
+import pickle
+from pathlib import Path
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.ensemble import HistGradientBoostingClassifier
+from sklearn.model_selection import GridSearchCV
 
 
 # Optional: implement hyperparameter tuning.
@@ -17,8 +22,17 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
+    model = HistGradientBoostingClassifier(random_state=46)
+    parameters = {
+        "n_estimators": (5, 10),
+        "learning_rate": (0.1, 0.01, 0.001),
+        "max_depth": [None, 1, 3, 5, 10, 20],
+        "max_features": ("auto", "log2")
+    }
+    grid = GridSearchCV(model, parameters)
+    grid.fit(X_train, y_train)
 
-    pass
+    return grid.best_estimator_
 
 
 def compute_model_metrics(y, preds):
@@ -57,4 +71,18 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+    preds = model.predict(X)
+    return preds
+
+
+def save_model(model, filepath, filename):
+    path = Path(filepath)
+
+    if path.exists():
+        with open(f"{filepath}/{filename}", "wb") as file:
+            pickle.dump(model, file)
+        logging.info("model saved to: ", filepath)
+        return True
+    else:
+        logging.error(f"path: {filepath} does not exists")
+        return False
