@@ -41,6 +41,6 @@ def save_data_csv(df: DataFrame, folder: str, file_name: str) -> bool:
 
 
 if __name__ == "__main__":
-    census_df = clean_categorical_cols(clean_cols_name(load_data_csv("./census.csv")))
+    census_df = clean_categorical_cols(clean_cols_name(load_data_csv("../../data/census.csv")))
     cleaned_census_df = clean_rows_with_false_condition(census_df, ["workclass", "occupation", "native-country"], "?")
-    save_data_csv(cleaned_census_df, ".", "census_clean.csv")
+    save_data_csv(cleaned_census_df, ".", "../../data/census_clean.csv")
