@@ -1,18 +1,16 @@
 import argparse
 import requests
-import logging
 
 
-def prediction_request(base_url: str, data: dict):
+def prediction_request(base_url: str, data: dict) -> dict:
     res = requests.post(f"{base_url}/predict", json=data)
-    logging.info(res.json())
-    print(type(res))
-    return response
+    print(res.json())
+    return res.json()
 
 
 if __name__ == "__main__":
 
-    BASE_URL = "https://census-prediction-app-mlops.herokuapp.com/"
+    BASE_URL = "https://census-prediction-app-mlops.herokuapp.com"
 
     below_data = {
         "age": 39,
@@ -50,15 +48,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "example_type",
+        "-e",
+        "--example_type",
+        required=True,
         type=str,
         choices=["above", "below"],
         help="The type of sample data you want to send to the api",
     )
 
-    known_args, _ = parser.parse_args()
+    args = parser.parse_args()
 
-    if known_args.example_type == "above":
+    if args.example_type == "above":
         data = above_data
     else:
         data = below_data
