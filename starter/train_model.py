@@ -9,7 +9,7 @@ from .ml.data import process_data
 from .ml.model import train_model, inference, compute_model_metrics, save_model
 
 # Add code to load in the data.
-path = Path(__file__).parent / "../data/census_clean.csv"
+path = Path.cwd() / "data" / "census_clean.csv"
 data = pd.read_csv(path)
 
 
