@@ -2,7 +2,7 @@ import pytest
 import pandas as pd
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def data():
     """ Retrieve Cleaned Dataset """
     df = pd.read_csv("data/census_clean.csv")

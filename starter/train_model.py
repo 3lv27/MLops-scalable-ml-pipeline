@@ -1,12 +1,12 @@
 # Script to train machine learning model.
-import logging
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 
 # Add the necessary imports for the starter code.
 import pandas as pd
-from .ml.data import process_data
-from .ml.model import train_model, inference, compute_model_metrics, save_model
+from ml.data import process_data
+from ml.model import train_model, inference, compute_model_metrics, save_model
+from eval_performance_slices import compute_slice_performance
 
 # Add code to load in the data.
 path = Path.cwd() / "data" / "census_clean.csv"
@@ -57,3 +57,6 @@ train_precision, train_recall, train_fbeta = compute_model_metrics(
 y_test_pred = inference(classifier, X_test)
 test_precision, test_recall, test_fbeta = compute_model_metrics(
     y_test, y_test_pred)
+
+# Compute slice performance metrics adn write results ina  txt
+compute_slice_performance(data, classifier, encoder, lb, cat_features)

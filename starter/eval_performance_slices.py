@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 from ml.data import process_data
 from ml.model import inference, compute_model_metrics
 
@@ -28,7 +29,7 @@ def compute_slice_performance(data, model, encoder, lb, cat_features):
     results = {}
     for col in cat_features:
         col_results = {}
-        for category in data[col].unique():
+        for category in data.loc[:, col].unique():
             data_temp = data[data[col] == category]
             X, y, _, _ = process_data(
                 data_temp,
@@ -43,7 +44,8 @@ def compute_slice_performance(data, model, encoder, lb, cat_features):
         results[col] = col_results
 
     # write output in results dictionary to file
-    with open("../screenshots/slice_performance.txt", "w") as f:
+    path = Path.cwd() / "screenshots" / "slice_output.txt"
+    with open(path, "w") as f:
         json.dump(results, f, indent=2)
 
     return results
