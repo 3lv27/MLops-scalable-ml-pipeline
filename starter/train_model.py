@@ -10,7 +10,7 @@ from .ml.model import train_model, inference, compute_model_metrics, save_model
 
 # Add code to load in the data.
 try:
-    data = pd.read_csv(r"starter/data/census_clean.csv")
+    data = pd.read_csv(r"data/census_clean.csv")
 except FileNotFoundError:
     logging.error("data/census_clean.csv NOT found")
     raise FileNotFoundError
