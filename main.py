@@ -18,18 +18,6 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
 app = FastAPI(title="FastAPI Census Prediction 🤖",
               description="Ask your Census thoughts to our API")
 
-cat_features = [
-    "workclass",
-    "education",
-    "marital-status",
-    "occupation",
-    "relationship",
-    "race",
-    "sex",
-    "native-country",
-]
-
-
 class CensusRequestModel(BaseModel):
     """Census prediction data model."""
     age: int
@@ -85,6 +73,17 @@ async def predict(data: CensusRequestModel):
                         "native-country": data.native_country}])
 
     model, encoder, lb = load_artifacts()
+
+    cat_features = [
+        "workclass",
+        "education",
+        "marital-status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native-country",
+    ]
 
     # process the data to get it into the correct format for inference
     X, _, _, _ = process_data(df,
