@@ -1,6 +1,6 @@
 # Script to train machine learning model.
 import logging
-
+from pathlib import Path
 from sklearn.model_selection import train_test_split
 
 # Add the necessary imports for the starter code.
@@ -9,10 +9,9 @@ from .ml.data import process_data
 from .ml.model import train_model, inference, compute_model_metrics, save_model
 
 # Add code to load in the data.
-try:
-    data = pd.read_csv(r"./data/census_clean.csv")
-except FileNotFoundError:
-    raise FileNotFoundError("data/census_clean.csv NOT found")
+path = Path(__file__).parent / "../data/census_clean.csv"
+data = pd.read_csv(path)
+
 
 # Optional enhancement, use K-fold cross validation instead of a
 # train-test split.
