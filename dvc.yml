@@ -1,0 +1,29 @@
+stages:
+  clean_data:
+    cmd: python starter/data_basic_clean.py
+    deps:
+    - data/census.csv
+    - data/data_basic_clean.py
+    outs:
+    - data/census_clean.csv
+  train_model:
+    cmd: python starter/train_model.py
+    deps:
+    - data/census_clean.csv
+    - starter/train_model.py
+    - starter/ml/data.py
+    - starter/ml/model.py
+    outs:
+    - model/chgb_classifier.pkl
+    - model/encoder.pkl
+    - model/lb.pkl
+    - screenshots/slice_ouput.txt
+#    metrics:
+#    - model/scores.json:
+#        cache: false
+#    plots:
+#      - model/slicing_scores.json:
+#          cache: false
+#          title: Slicing Scores
+#          x: recall
+#          y: precision
