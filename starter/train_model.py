@@ -1,4 +1,5 @@
 # Script to train machine learning model.
+import logging
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 
@@ -11,7 +12,6 @@ from eval_performance_slices import compute_slice_performance
 # Add code to load in the data.
 path = Path.cwd() / "data" / "census_clean.csv"
 data = pd.read_csv(path)
-
 
 # Optional enhancement, use K-fold cross validation instead of a
 # train-test split.
@@ -49,7 +49,6 @@ save_model(lb, "lb.pkl")
 classifier = train_model(X_train, y_train)
 save_model(classifier, "hgb_classifier.pkl")
 
-
 y_train_pred = inference(classifier, X_train)
 train_precision, train_recall, train_fbeta = compute_model_metrics(
     y_train, y_train_pred)
@@ -57,6 +56,10 @@ train_precision, train_recall, train_fbeta = compute_model_metrics(
 y_test_pred = inference(classifier, X_test)
 test_precision, test_recall, test_fbeta = compute_model_metrics(
     y_test, y_test_pred)
+
+print(f"Your test metrics are: \n"
+      f"precision - {test_precision}, recall - {test_recall}, "
+      f"fbeta - {test_fbeta}")
 
 # Compute slice performance metrics adn write results ina  txt
 compute_slice_performance(data, classifier, encoder, lb, cat_features)

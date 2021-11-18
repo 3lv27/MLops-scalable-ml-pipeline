@@ -50,9 +50,9 @@ Census Income Data Set: https://archive.ics.uci.edu/ml/datasets/census+income
 
 ## Metrics
 Metrics used for model evaluation:  
-- **Precision:** calculated as (number of true positives) / (number of all labels with positive predictions)  
-- **Recall:** calculated as (number of true positives) / (number of all labels with real positive )  
-- **Fbeta:** the weighted harmonic mean of precision and recall; in this model, weight on recall = 0.7 and weight on precision = 0.3
+- **Precision: 0.7882256745707277** calculated as (number of true positives) / (number of all labels with positive predictions)  
+- **Recall: 0.6531165311653117** calculated as (number of true positives) / (number of all labels with real positive )  
+- **Fbeta: 0.7143386439422007** the weighted harmonic mean of precision and recall.
 
 ## Ethical Considerations
 Uses all features from the census dataset including race and sex.
